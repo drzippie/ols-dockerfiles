@@ -4,7 +4,7 @@ PHP_VERSION=''
 PUSH=''
 CONFIG=''
 TAG=''
-BUILDER='litespeedtech'
+BUILDER='drzippie'
 REPO='openlitespeed'
 EPACE='        '
 
@@ -15,7 +15,7 @@ echow(){
 }
 
 help_message(){
-    echo -e "\033[1mOPTIONS\033[0m" 
+    echo -e "\033[1mOPTIONS\033[0m"
     echow '-O, --ols [VERSION] -P, --php [lsphpVERSION]'
     echo "${EPACE}${EPACE}Example: bash build.sh --ols 1.7.11 --php lsphp80"
     echow '--push'
@@ -35,7 +35,7 @@ build_image(){
     else
         echo "${1} ${2}"
         docker build . --tag ${BUILDER}/${REPO}:${1}-${2} --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2}
-    fi    
+    fi
 }
 
 test_image(){
@@ -53,7 +53,7 @@ test_image(){
         echo "https://localhost returned ${HTTPS}"
         exit 1
     else
-        echo '[O] Tests passed!' 
+        echo '[O] Tests passed!'
     fi
 }
 
@@ -68,7 +68,7 @@ push_image(){
             docker ${CONFIG} push ${BUILDER}/${REPO}:${3}
         fi
     else
-        echo 'Skip Push.'    
+        echo 'Skip Push.'
     fi
 }
 
@@ -94,13 +94,13 @@ while [ ! -z "${1}" ]; do
             ;;
         -[tT] | -tag | -TAG | --tag) shift
             TAG="${1}"
-            ;;       
+            ;;
         --push ) shift
             PUSH=true
-            ;;            
-        *) 
+            ;;
+        *)
             help_message
-            ;;              
+            ;;
     esac
     shift
 done
